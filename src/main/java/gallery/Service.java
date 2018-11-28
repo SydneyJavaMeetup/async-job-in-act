@@ -3,12 +3,10 @@ package gallery;
 import act.cli.Command;
 import act.cli.Optional;
 import act.inject.DefaultValue;
-import act.util.Async;
 import org.osgl.mvc.annotation.GetAction;
 
 public class Service {
 
-    @Async
     @GetAction("/calcPi")
     @Command(name = "calcPi", help = "calculate pi")
     public double calcPi(@DefaultValue("99999999") @Optional int steps) {

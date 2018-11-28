@@ -9,7 +9,7 @@
 </div>
 <br/>
 <div>
-  <span>Steps:&nbsp;&nbsp;</span><input id="steps" value="99999999">
+  <span>Steps:&nbsp;&nbsp;</span><input id="steps" value="99999">
 </div>
 <br/>
 <button id="calculate" type="button">Calculate PI</button>
@@ -17,8 +17,10 @@
   $('#calculate').on('click', function() {
     var steps = $('#steps').val()
     $('#calculate').prop('disabled', true)
+      $('#result').text('...')
     $.getJSON('/calcPi?steps=' + steps, function(data) {
-      $('#result').text('jobId: ' + data.jobId)
+      $('#result').text('result: ' + data.result)
+      $('#calculate').prop('disabled', false)
     })
   })
 </script>
