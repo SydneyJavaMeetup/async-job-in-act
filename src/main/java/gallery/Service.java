@@ -1,9 +1,9 @@
 package gallery;
 
-import act.cli.*;
+import act.cli.Command;
+import act.cli.Optional;
 import act.inject.DefaultValue;
 import act.util.Async;
-import act.util.ProgressGauge;
 import org.osgl.mvc.annotation.GetAction;
 
 public class Service {
@@ -11,8 +11,7 @@ public class Service {
     @Async
     @GetAction("/calcPi")
     @Command(name = "calcPi", help = "calculate pi")
-    public double calcPi(@DefaultValue("99999999") @Optional int steps, ProgressGauge gauge) {
-        gauge.updateMaxHint(steps);
+    public double calcPi(@DefaultValue("99999999") @Optional int steps) {
         double pi = 0.0d;
         for (int i = steps; i > 0; --i) {
             pi += Math.pow(-1, i + 1) / (2 * i - 1);
@@ -20,7 +19,6 @@ public class Service {
                 pi *= 4;
                 break;
             }
-            gauge.step();
         }
         return pi;
     }

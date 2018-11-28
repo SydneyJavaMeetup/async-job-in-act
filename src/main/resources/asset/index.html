@@ -18,26 +18,9 @@
     var steps = $('#steps').val()
     $('#calculate').prop('disabled', true)
     $.getJSON('/calcPi?steps=' + steps, function(data) {
-      var jobId = data.jobId
-      setTimeout(function() {
-        trackProgress(jobId)
-      }, 10)
+      $('#result').text('jobId: ' + data.jobId)
     })
   })
-  function trackProgress(jobId) {
-    var ws = $.createWebSocket('/~/ws/jobs/' + jobId + '/progress')
-    ws.onmessage = function(event) {
-      var progress = JSON.parse(event.data).act_job_progress
-      if (!progress.done) {
-        $('#result').text(progress.progressPercent + '%')
-      } else {
-        $.getJSON('/~/jobs/' + jobId + '/result', function(data) {
-          $('#result').text(data.result)
-          $('#calculate').prop('disabled', false)
-        })
-      }
-    }
-  }
 </script>
 </body>
 </html>
